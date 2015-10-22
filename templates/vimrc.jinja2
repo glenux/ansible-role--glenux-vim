@@ -1,0 +1,261 @@
+
+{% if vim_modeline %}
+set modeline
+set modelines={{vim_modelines}}
+{% endif %}
+
+{% if vim.syntax %}
+syntax on
+{%endif%}
+
+set t_Co=256
+
+":set nu
+set backupdir=$HOME/tmp
+set dir=$HOME/tmp
+
+" Wild menu
+set wildmenu
+set wildmode=longest:list
+
+" Redefine <Leader> key in vim
+let mapleader = ","
+
+set colorcolumn=80,120
+nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
+"autocmd WinEnter * setlocal cursorline
+"autocmd WinLeave * setlocal nocursorline
+
+nmap <F4> :w<CR>:make<CR>:cw<CR>
+
+" Make sure that your status line is always shown as the second last line in
+" the editor window: 
+set laststatus=2 
+
+
+" Folds
+" =====
+
+set foldmethod=indent   " Fold based on indent
+set foldnestmax=3       " Deepest fold is 3 levels
+set nofoldenable        " Don't fold by default
+set foldcolumn=2
+set foldmethod=marker
+
+" Spell check parameters
+set spelllang=fr_FR
+set spellfile=$HOME/.vim/spell/generic.fr.add
+highlight SpellBad ctermfg=NONE ctermbg=NONE cterm=underline,bold
+highlight SpellCap ctermfg=NONE ctermbg=NONE cterm=underline,bold
+highlight SpellLocal ctermfg=NONE ctermbg=NONE cterm=underline,bold
+highlight MatchParen cterm=bold ctermfg=NONE ctermbg=NONE
+
+" Number of visible lines to keep above/below the cursor
+set scrolloff=3
+
+" Show cursor position (line, col)
+set ruler
+
+
+set list
+
+"set smarttab softtabstop=8 tabstop=8 shiftwidth=4 noexpandtab list
+set listchars=tab:~.,trail:.,nbsp:�
+
+" Mouse parameters
+" ================
+
+" mouse parameters
+set mouse=a
+
+" send more characters for redraw
+set ttyfast
+ 
+" Set this to the name of your terminal that supports mouse codes.
+" Must be one of: xterm, xterm2, netterm, dec, jsbterm, pterm
+set ttymouse=xterm2
+
+if !has("compatible")
+    call pathogen#infect()
+
+    " Disable views when using Rails plugin
+    "" autocmd BufWinLeave * silent! mkview
+    "" autocmd BufWinEnter * silent! loadview
+
+    "autocmd BufReadPost *
+	"	\ if line("'\"") > 0 && line("'\"") <= line("$") |
+	"	\ exe "normal g`\"" |
+	"	\ endif
+
+    filetype plugin indent on
+    filetype plugin on
+    
+    " Text indent, tab, width
+    set noexpandtab
+    set copyindent
+    set preserveindent
+    set softtabstop=0
+    set shiftwidth=4
+    set tabstop=4
+
+    autocmd BufRead mutt* syntax on
+    autocmd BufRead mutt* set ft=mail
+    autocmd BufRead mutt* set textwidth=72
+    autocmd BufRead mutt* set wrap
+
+    autocmd BufNewFile,BufRead *.t2t set ft=txt2tags
+    autocmd BufNewFile,BufRead *.md set ft=markdown
+
+	let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
+
+	augroup pencil
+		autocmd!
+		autocmd FileType markdown,mkd call pencil#init()
+		autocmd FileType text         call pencil#init()
+	augroup END
+
+    autocmd FileType css,scss,less set tabstop=4 shiftwidth=4 softtabstop=0 smarttab noexpandtab nolist textwidth=0
+    autocmd FileType javascript set tabstop=4 shiftwidth=4 softtabstop=0 smarttab noexpandtab nolist textwidth=0
+    autocmd FileType markdown set tabstop=4 shiftwidth=4 softtabstop=0 nosmarttab expandtab list textwidth=0
+    autocmd FileType haml set tabstop=2 shiftwidth=2 softtabstop=0 nosmarttab expandtab list textwidth=0
+    autocmd FileType xhtml,html set tabstop=4 shiftwidth=4 softtabstop=0 smarttab noexpandtab nolist textwidth=0
+    autocmd FileType c set tabstop=4 shiftwidth=4 softtabstop=0 smarttab noexpandtab nolist textwidth=0
+    autocmd FileType cpp set tabstop=4 shiftwidth=4 softtabstop=0 smarttab noexpandtab nolist textwidth=0
+    autocmd FileType java set tabstop=4 shiftwidth=4 softtabstop=0 smarttab noexpandtab nolist textwidth=0
+    autocmd FileType python set tabstop=4 shiftwidth=4 softtabstop=0 smarttab noexpandtab list textwidth=0
+    autocmd FileType ruby set tabstop=2 shiftwidth=2 softtabstop=0 smarttab expandtab nolist textwidth=0
+    autocmd FileType php set tabstop=4 shiftwidth=4 softtabstop=0 smarttab noexpandtab nolist textwidth=0
+    autocmd FileType sh set tabstop=4 shiftwidth=4 softtabstop=0 smarttab noexpandtab nolist textwidth=0
+    autocmd FileType make set tabstop=4 shiftwidth=4 softtabstop=0 smarttab noexpandtab list textwidth=0
+    autocmd FileType xsd,xml set tabstop=4 shiftwidth=4 softtabstop=0 smarttab noexpandtab nolist textwidth=0
+    autocmd BufRead,BufNewFile /tmp/mutt-* source $HOME/.vim/mutt.colors
+
+    "autocmd FileType python set
+    "\ softtabstop=4
+    "            \ autoindent
+    "            \ smartindent
+
+    autocmd BufNewFile,BufRead *
+                \ syntax match GNUX_TAGS /FIXME\s*:/ containedin=ALL contained |
+                \ syntax match GNUX_TAGS /TOREAD\s*:/ containedin=ALL contained |
+                \ highlight GNUX_TAGS ctermbg=darkred ctermfg=green
+endif
+
+"autocmd FileType python source ~/.vim/scripts/python.vim
+highlight Folded guibg=gray15 guifg=gray50
+
+
+highlight TabLine term=none cterm=none
+"highlight TabLineSel ctermbg=darkred
+
+syntax match TAB_CHAR /^[ ]*/
+"syntax match TAB_CHAR /\t/
+highlight link TAB_CHAR Error
+
+"set cursorline
+"highlight CursorLine term=reverse cterm=reverse
+"au FileType haskell,vhdl,ada,ocaml      let b:comment_leader = '-- ' 
+"au FileType vim                         let b:comment_leader = '" '
+"au FileType c,cpp,java                  let b:comment_leader = '// '
+"au FileType sh,make                     let b:comment_leader = '# '
+"au FileType tex                         let b:comment_leader = '% '
+"noremap <silent> ,c :<C-B>sil <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:noh<CR>
+"noremap <silent> ,u :<C-B>sil <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:noh<CR>
+
+"set background=dark
+"highlight PreProc ctermfg=5 cterm=bold		"cyan
+"highlight Comment ctermfg=9			"bright red
+"highlight String ctermfg=7			"dark white
+"highlight Normal guibg=Black guifg=White
+
+" Display settings
+"set background=light
+set background=dark
+"let g:solarized_termcolors=256
+colorscheme desert
+set guifont=DejaVu\ Sans\ Mono\ 9
+hi CursorLine   cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+
+set guifont=DejaVu\ Sans\ Mono\ 11
+
+" NERDTree : Set NERDTree position
+let NERDTreeWinPos="left"
+
+" NERDTree : Use as expected with mouse, (dir => single clic, file => double clic)
+let NERDTreeMouseMode=2
+
+" NERDTree : Run at startup
+autocmd vimenter * NERDTree
+
+" NERDTree : Force focus to right buffer
+autocmd vimenter * wincmd p
+
+" NERDTree : automatically close if it is the last window remaining
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+" NERDTree : map to ,nt
+nnoremap <Leader>nt :NERDTreeToggle<CR>
+nnoremap <Leader>nf :NERDTreeFind<CR>
+
+" RainbowParenthesesActivate
+" autocmd VimEnter * RainbowParenthesesActivate
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+
+
+" Fugitive : set key mapping
+nnoremap <Leader>gb :Gblame<CR>
+nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>gd :Gdiff<Space>
+nnoremap <Leader>gw :Gwrite<Space>
+
+" Rails : set key mapping
+nnoremap <Leader>rc :Rcontroller<CR>
+nnoremap <Leader>rv :Rview <cword><CR>
+nnoremap <Leader>rh :Rhelper <cword><CR>
+nnoremap <Leader>rm :Rmodel<CR>
+nnoremap <Leader>rs :Emodel<CR>
+
+
+" Buffer management : show buffer list & choose
+nnoremap <F5> :buffers<CR>:buffer<Space>
+
+" ## added by OPAM user-setup for vim / base ## 8a3125e39f347f6b9a1b167d8e564281 ## you can edit, but keep this line
+let s:opam_share_dir = system("opam config var share")
+let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')
+
+let s:opam_configuration = {}
+
+function! OpamConfOcpIndent()
+  let l:file = s:opam_share_dir . "/vim/syntax/ocp-indent.vim"
+  execute "source " . l:file
+endfunction
+let s:opam_configuration['ocp-indent'] = function('OpamConfOcpIndent')
+
+function! OpamConfOcpIndex()
+  let l:dir = s:opam_share_dir . "/ocp-index/vim"
+  execute "set rtp+=" . l:dir
+endfunction
+let s:opam_configuration['ocp-index'] = function('OpamConfOcpIndex')
+
+function! OpamConfMerlin()
+  let l:dir = s:opam_share_dir . "/merlin/vim"
+  execute "set rtp+=" . l:dir
+endfunction
+let s:opam_configuration['merlin'] = function('OpamConfMerlin')
+
+let s:opam_packages = ["ocp-indent", "ocp-index", "merlin"]
+let s:opam_check_cmdline = ["opam list --installed --short --safe --color=never"] + s:opam_packages
+let s:opam_available_tools = split(system(join(s:opam_check_cmdline, ' ')))
+for tool in s:opam_available_tools
+  call s:opam_configuration[tool]()
+endfor
+" ## end of OPAM user-setup addition for vim / base ## keep this line
+
+" Ocaml Type Annotation
+nnoremap <F2> :MerlinTypeOf<CR>
+nnoremap <F3> :MerlinTypeOf<CR>
+
