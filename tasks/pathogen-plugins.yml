@@ -1,5 +1,5 @@
 ---
-- name: Install Solarized
+- name: Install Solarized plugin
   git: >
     repo=git://github.com/altercation/vim-colors-solarized.git 
     dest=~/.vim/bundle/vim-colors-solarized
@@ -8,7 +8,7 @@
   become: true
   become_user: "{{vim_user}}"
 
-- name: Install Nerdtree 
+- name: Install Nerdtree plugin
   git: 
     repo=https://github.com/scrooloose/nerdtree.git
     dest=~/.vim/bundle/nerdtree
@@ -18,7 +18,7 @@
   become_user: "{{vim_user}}"
 
 
-- name: Install AutoComplPop 
+- name: Install AutoComplPop plugin
   git: 
     repo=https://github.com/vim-scripts/AutoComplPop.git
     dest=~/.vim/bundle/AutoComplPop
@@ -27,7 +27,7 @@
   become: true
   become_user: "{{vim_user}}"
 
-- name: Install vim-fugitive
+- name: Install vim-fugitive plugin
   git:
     repo=https://github.com/tpope/vim-fugitive.git
     dest=~/.vim/bundle/vim-fugitive
@@ -45,7 +45,7 @@
 #  become: true
 #  become_user: "{{vim_user}}"
 
-- name: Install rainbow_parentheses
+- name: Install rainbow_parentheses plugin
   git:
     repo=https://github.com/kien/rainbow_parentheses.vim.git
     dest=~/.vim/bundle/rainbow_parentheses
@@ -54,7 +54,7 @@
   become: true
   become_user: "{{vim_user}}"
 
-- name: Install syntastic/
+- name: Install syntastic plugin
   git:
     repo=https://github.com/scrooloose/syntastic.git
     dest=~/.vim/bundle/syntastic
@@ -64,7 +64,7 @@
   become_user: "{{vim_user}}"
 
 
-- name: Install tabular
+- name: Install tabular plugin
   git:
     repo=https://github.com/godlygeek/tabular.git
     dest=~/.vim/bundle/tabular
@@ -73,7 +73,7 @@
   become: true
   become_user: "{{vim_user}}"
 
-- name: Install vim-bundler
+- name: Install vim-bundler plugin
   git:
     repo=https://github.com/tpope/vim-bundler.git
     dest=~/.vim/bundle/vim-bundler
@@ -82,7 +82,7 @@
   become: true
   become_user: "{{vim_user}}"
 
-- name: Install vim-javascript
+- name: Install vim-javascript plugin
   git:
     repo=https://github.com/pangloss/vim-javascript.git
     dest=~/.vim/bundle/vim-javascript
@@ -91,7 +91,7 @@
   become: true
   become_user: "{{vim_user}}"
 
-- name: Install vim-puppet
+- name: Install vim-puppet plugin
   git:
     repo=https://github.com/rodjek/vim-puppet.git
     dest=~/.vim/bundle/vim-puppet
@@ -100,7 +100,7 @@
   become: true
   become_user: "{{vim_user}}"
 
-- name: Install vim-rails
+- name: Install vim-rails plugin
   git:
     repo=https://github.com/tpope/vim-rails.git
     dest=~/.vim/bundle/vim-rails
@@ -109,7 +109,7 @@
   become: true
   become_user: "{{vim_user}}"
 
-- name: Install vim-sensible
+- name: Install vim-sensible plugin
   git:
     repo=https://github.com/tpope/vim-sensible.git
     dest=~/.vim/bundle/vim-sensible
@@ -118,12 +118,27 @@
   become: true
   become_user: "{{vim_user}}"
 
-# - name: Install YouCompleteMe
-#   git:
-#     repo=https://github.com/Valloric/YouCompleteMe.git
-#     dest=~/.vim/bundle/YouCompleteMe
-#     update=yes
-#     accept_hostkey=yes
-#   become: true
-#   become_user: "{{vim_user}}"
+- name: Install YouCompleteMe dependencies
+  apt: 
+    name="{{item}}"
+    state=present
+  with_items:
+    - python-dev
+    - build-essential
+    - cmake
+
+- name: Install YouCompleteMe plugin
+  git:
+    repo=https://github.com/Valloric/YouCompleteMe.git
+    dest=~/.vim/bundle/YouCompleteMe
+    update=yes
+    accept_hostkey=yes
+  become: true
+  become_user: "{{vim_user}}"
+
+- name: Install YouCompleteMe library
+  shell: ./install.sh
+  chdir: ~/.vim/bundle/YouCompleteMe
+  become: true
+  become_user: "{{vim_user}}"
 
