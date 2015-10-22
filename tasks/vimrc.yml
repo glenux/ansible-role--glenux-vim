@@ -1,0 +1,16 @@
+
+- lineinfile: >
+    dest=~/.vimrc
+    regexp="{{vimrc_boundary_begin_regexp}}"
+    line="{{vimrc_boundary_begin}}"
+    create=yes
+  become: true
+  become_user: "{{vim_user}}"
+
+- lineinfile: >
+    dest=~/.vimrc
+    regexp="{{vimrc_boundary_end_regexp}}"
+    insertafter="{{vimrc_boundary_begin_regexp}}"
+    line="{{vimrc_boundary_end}}"
+  become: true
+  become_user: "{{vim_user}}"

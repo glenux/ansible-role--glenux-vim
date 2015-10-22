@@ -1,0 +1,19 @@
+---
+- name: Make directories for Pathogen
+  command: mkdir -p ~/.vim/autoload ~/.vim/bundle
+  become: true
+  become_user: "{{vim_user}}"
+
+- name: Install Pathogen
+  command: >
+    curl -LSso ~/.vim/autoload/pathogen.vim https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
+  become: true
+  become_user: "{{vim_user}}"
+
+- lineinfile: >
+    dest=~/.vimrc
+    regexp=^execute.pathogen.infect
+    line="execute pathogen#infect()"
+    insertbefore="{{vimrc_boundary_end_regexp}}"
+  become: true
+  become_user: "{{vim_user}}"

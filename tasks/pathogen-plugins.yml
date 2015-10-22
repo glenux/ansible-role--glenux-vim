@@ -1,0 +1,129 @@
+---
+- name: Install Solarized
+  git: >
+    repo=git://github.com/altercation/vim-colors-solarized.git 
+    dest=~/.vim/bundle/vim-colors-solarized
+    update=yes
+    accept_hostkey=yes
+  become: true
+  become_user: "{{vim_user}}"
+
+- name: Install Nerdtree 
+  git: 
+    repo=https://github.com/scrooloose/nerdtree.git
+    dest=~/.vim/bundle/nerdtree
+    update=yes
+    accept_hostkey=yes
+  become: true
+  become_user: "{{vim_user}}"
+
+
+- name: Install AutoComplPop 
+  git: 
+    repo=https://github.com/vim-scripts/AutoComplPop.git
+    dest=~/.vim/bundle/AutoComplPop
+    update=yes
+    accept_hostkey=yes
+  become: true
+  become_user: "{{vim_user}}"
+
+- name: Install vim-fugitive
+  git:
+    repo=https://github.com/tpope/vim-fugitive.git
+    dest=~/.vim/bundle/vim-fugitive
+    update=yes
+    accept_hostkey=yes
+  become: true
+  become_user: "{{vim_user}}"
+
+#- name: Install CtrlP
+#  git:
+#    repo=https://github.com/kien/ctrlp.vim.git
+#    dest=~/.vim/bundle/ctrlp.vim
+#    update=yes
+#    accept_hostkey=yes
+#  become: true
+#  become_user: "{{vim_user}}"
+
+- name: Install rainbow_parentheses
+  git:
+    repo=https://github.com/kien/rainbow_parentheses.vim.git
+    dest=~/.vim/bundle/rainbow_parentheses
+    update=yes
+    accept_hostkey=yes
+  become: true
+  become_user: "{{vim_user}}"
+
+- name: Install syntastic/
+  git:
+    repo=https://github.com/scrooloose/syntastic.git
+    dest=~/.vim/bundle/syntastic
+    update=yes
+    accept_hostkey=yes
+  become: true
+  become_user: "{{vim_user}}"
+
+
+- name: Install tabular
+  git:
+    repo=https://github.com/godlygeek/tabular.git
+    dest=~/.vim/bundle/tabular
+    update=yes
+    accept_hostkey=yes
+  become: true
+  become_user: "{{vim_user}}"
+
+- name: Install vim-bundler
+  git:
+    repo=https://github.com/tpope/vim-bundler.git
+    dest=~/.vim/bundle/vim-bundler
+    update=yes
+    accept_hostkey=yes
+  become: true
+  become_user: "{{vim_user}}"
+
+- name: Install vim-javascript
+  git:
+    repo=https://github.com/pangloss/vim-javascript.git
+    dest=~/.vim/bundle/vim-javascript
+    update=yes
+    accept_hostkey=yes
+  become: true
+  become_user: "{{vim_user}}"
+
+- name: Install vim-puppet
+  git:
+    repo=https://github.com/rodjek/vim-puppet.git
+    dest=~/.vim/bundle/vim-puppet
+    update=yes
+    accept_hostkey=yes
+  become: true
+  become_user: "{{vim_user}}"
+
+- name: Install vim-rails
+  git:
+    repo=https://github.com/tpope/vim-rails.git
+    dest=~/.vim/bundle/vim-rails
+    update=yes
+    accept_hostkey=yes
+  become: true
+  become_user: "{{vim_user}}"
+
+- name: Install vim-sensible
+  git:
+    repo=https://github.com/tpope/vim-sensible.git
+    dest=~/.vim/bundle/vim-sensible
+    update=yes
+    accept_hostkey=yes
+  become: true
+  become_user: "{{vim_user}}"
+
+# - name: Install YouCompleteMe
+#   git:
+#     repo=https://github.com/Valloric/YouCompleteMe.git
+#     dest=~/.vim/bundle/YouCompleteMe
+#     update=yes
+#     accept_hostkey=yes
+#   become: true
+#   become_user: "{{vim_user}}"
+

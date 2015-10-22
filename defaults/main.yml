@@ -1,2 +1,7 @@
 ---
 # defaults file for glenux.vim
+vimrc_boundary: Ansible glenux.vim
+vimrc_boundary_begin: "\\\" BEGIN {{vimrc_boundary}} -- DO NOT MODIFY"
+vimrc_boundary_end: "\\\" END {{vimrc_boundary}}"
+vimrc_boundary_begin_regexp: "^{{vimrc_boundary_begin}}"
+vimrc_boundary_end_regexp: "^{{vimrc_boundary_end}}"
