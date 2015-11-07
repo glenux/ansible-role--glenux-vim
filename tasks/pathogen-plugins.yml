@@ -138,7 +138,7 @@
 
 - name: Install YouCompleteMe library
   shell: ./install.sh
-  chdir: ~/.vim/bundle/YouCompleteMe
+    chdir=~/.vim/bundle/YouCompleteMe
   become: true
   become_user: "{{vim_user}}"
 
