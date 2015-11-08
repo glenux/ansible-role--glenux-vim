@@ -5,7 +5,8 @@
     line="{{vimrc_boundary_begin}}"
     create=yes
   become: true
-  become_user: "{{vim_user}}"
+  become_user: "{{item}}"
+  with_items: users
 
 - lineinfile: >
     dest=~/.vimrc
@@ -13,4 +14,5 @@
     insertafter="{{vimrc_boundary_begin_regexp}}"
     line="{{vimrc_boundary_end}}"
   become: true
-  become_user: "{{vim_user}}"
+  become_user: "{{item}}"
+  with_items: users
