@@ -139,6 +139,12 @@
     - build-essential
     - cmake
 
+#- name: Remove YouCompleteMe git for plugin
+#  file: path=~/.vim/bundle/YouCompleteMe state=absent
+#  become: true
+#  become_user: "{{item}}"
+#  with_items: users
+
 - name: Install YouCompleteMe plugin
   git:
     repo=https://github.com/Valloric/YouCompleteMe.git
