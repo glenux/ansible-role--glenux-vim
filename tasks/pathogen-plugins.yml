@@ -145,7 +145,7 @@
 #  become_user: "{{item}}"
 #  with_items: users
 
-- name: Install YouCompleteMe plugin
+- name: Fetch YouCompleteMe plugin
   git:
     repo=https://github.com/Valloric/YouCompleteMe.git
     dest=~/.vim/bundle/YouCompleteMe
@@ -155,9 +155,15 @@
   become_user: "{{item}}"
   with_items: users
 
-- name: Install YouCompleteMe library
+- name: Detect YouCompleteMe built plugin
+  register: youcompleteme_exists
+  command: test -f ~/.vim/bundle/YouCompleteMe/third_party/ycmd/ycm_core.so
+  ignore_errors: True
+
+- name: Build YouCompleteMe plugin
   shell: cd ~/.vim/bundle/YouCompleteMe ; ./install.sh
   become: true
   become_user: "{{item}}"
   with_items: users
+  when: youcompleteme_exists|failed
 
