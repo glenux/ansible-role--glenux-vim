@@ -1,13 +1,20 @@
 ---
 - name: Make directories for Pathogen
-  command: mkdir -p ~/.vim/autoload ~/.vim/bundle
+  file: >
+    "path={{item[0]}}"
+    state=directory
   become: true
-  become_user: "{{item}}"
-  with_items: users
+  become_user: "{{item[1]}}"
+  with_nested:
+    - [ '~/.vim/autoload', '~/.vim/bundle' ]
+    - users
+
 
 - name: Install Pathogen
-  command: >
-    curl -LSso ~/.vim/autoload/pathogen.vim https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
+  get_url: >
+    url=https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
+    dest=~/.vim/autoload/pathogen.vim
+    validate_certs=no
   become: true
   become_user: "{{item}}"
   with_items: users
@@ -20,3 +27,4 @@
   become: true
   become_user: "{{item}}"
   with_items: users
+
