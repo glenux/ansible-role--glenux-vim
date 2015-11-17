@@ -139,22 +139,8 @@
     - build-essential
     - cmake
 
-#- name: Remove YouCompleteMe git for plugin
-#  file: path=~/.vim/bundle/YouCompleteMe state=absent
-#  become: true
-#  become_user: "{{item}}"
-#  with_items: users
-
-- name: Detect previous YouCompleteMe revision
-  register: youcompleteme_revision_old
-  shell: >
-    if [ -d ~/.vim/bundle/YouCompleteMe ]; then 
-      cd ~/.vim/bundle/YouCompleteMe ; 
-      git rev-parse HEAD ;
-    fi
-  ignore_errors: false
-
 - name: Fetch YouCompleteMe plugin
+  register: youcompleteme_git
   git:
     repo=https://github.com/Valloric/YouCompleteMe.git
     dest=~/.vim/bundle/YouCompleteMe
@@ -164,28 +150,10 @@
   become_user: "{{item}}"
   with_items: users
 
-- name: Detect new YouCompleteMe revision
-  register: youcompleteme_revision_new
-  shell: >
-    if [ -d ~/.vim/bundle/YouCompleteMe ]; then 
-      cd ~/.vim/bundle/YouCompleteMe ; 
-      git rev-parse HEAD ;
-    fi
-  ignore_errors: false
-
-- name: Detect YouCompleteMe built plugin
-  debug:  msg="old={{youcompleteme_revision_old}} new={{youcompleteme_revision_new}}"
-
-- name: Detect YouCompleteMe built plugin
-  register: youcompleteme_exists
-  command: test -f ~/.vim/bundle/YouCompleteMe/third_party/ycmd/ycm_core.so
-  ignore_errors: true
-
-
 - name: Build YouCompleteMe plugin
   shell: cd ~/.vim/bundle/YouCompleteMe ; ./install.sh
   become: true
   become_user: "{{item}}"
   with_items: users
-  when: youcompleteme_exists|failed
+  when: youcompleteme_git.changed
 
