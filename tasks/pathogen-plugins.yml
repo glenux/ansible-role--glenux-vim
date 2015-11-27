@@ -7,7 +7,7 @@
     accept_hostkey=yes
   become: true
   become_user: "{{item}}"
-  with_items: users
+  with_items: vimrc_users
 
 - name: Install Nerdtree plugin
   git: 
@@ -17,7 +17,7 @@
     accept_hostkey=yes
   become: true
   become_user: "{{item}}"
-  with_items: users
+  with_items: vimrc_users
 
 
 - name: Install AutoComplPop plugin
@@ -28,7 +28,7 @@
     accept_hostkey=yes
   become: true
   become_user: "{{item}}"
-  with_items: users
+  with_items: vimrc_users
 
 - name: Install vim-fugitive plugin
   git:
@@ -38,7 +38,7 @@
     accept_hostkey=yes
   become: true
   become_user: "{{item}}"
-  with_items: users
+  with_items: vimrc_users
 
 #- name: Install CtrlP
 #  git:
@@ -57,7 +57,7 @@
     accept_hostkey=yes
   become: true
   become_user: "{{item}}"
-  with_items: users
+  with_items: vimrc_users
 
 - name: Install syntastic plugin
   git:
@@ -67,7 +67,7 @@
     accept_hostkey=yes
   become: true
   become_user: "{{item}}"
-  with_items: users
+  with_items: vimrc_users
 
 
 - name: Install tabular plugin
@@ -78,7 +78,7 @@
     accept_hostkey=yes
   become: true
   become_user: "{{item}}"
-  with_items: users
+  with_items: vimrc_users
 
 - name: Install vim-bundler plugin
   git:
@@ -88,7 +88,7 @@
     accept_hostkey=yes
   become: true
   become_user: "{{item}}"
-  with_items: users
+  with_items: vimrc_users
 
 - name: Install vim-javascript plugin
   git:
@@ -98,7 +98,7 @@
     accept_hostkey=yes
   become: true
   become_user: "{{item}}"
-  with_items: users
+  with_items: vimrc_users
 
 - name: Install vim-puppet plugin
   git:
@@ -108,7 +108,7 @@
     accept_hostkey=yes
   become: true
   become_user: "{{item}}"
-  with_items: users
+  with_items: vimrc_users
 
 - name: Install vim-rails plugin
   git:
@@ -118,7 +118,7 @@
     accept_hostkey=yes
   become: true
   become_user: "{{item}}"
-  with_items: users
+  with_items: vimrc_users
 
 - name: Install vim-sensible plugin
   git:
@@ -128,7 +128,7 @@
     accept_hostkey=yes
   become: true
   become_user: "{{item}}"
-  with_items: users
+  with_items: vimrc_users
 
 - name: Install YouCompleteMe dependencies
   apt: 
@@ -148,12 +148,12 @@
     accept_hostkey=yes
   become: true
   become_user: "{{item}}"
-  with_items: users
+  with_items: vimrc_users
 
 - name: Build YouCompleteMe plugin
   shell: cd ~/.vim/bundle/YouCompleteMe ; ./install.sh
   become: true
   become_user: "{{item}}"
-  with_items: users
+  with_items: vimrc_users
   when: youcompleteme_git.changed
 

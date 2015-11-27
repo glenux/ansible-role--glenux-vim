@@ -3,14 +3,14 @@
   command: mkdir -p ~/.vim/autoload ~/.vim/bundle
   become: true
   become_user: "{{item}}"
-  with_items: users
+  with_items: vimrc_users
 
 - name: Install Pathogen
   command: >
     curl -LSso ~/.vim/autoload/pathogen.vim https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
   become: true
   become_user: "{{item}}"
-  with_items: users
+  with_items: vimrc_users
 
 - lineinfile: >
     dest=~/.vimrc
@@ -19,4 +19,4 @@
     insertbefore="{{vimrc_boundary_end_regexp}}"
   become: true
   become_user: "{{item}}"
-  with_items: users
+  with_items: vimrc_users

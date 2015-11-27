@@ -6,7 +6,7 @@
     create=yes
   become: true
   become_user: "{{item}}"
-  with_items: users
+  with_items: vimrc_users
 
 - lineinfile: >
     dest=~/.vimrc
@@ -15,4 +15,4 @@
     line="{{vimrc_boundary_end}}"
   become: true
   become_user: "{{item}}"
-  with_items: users
+  with_items: vimrc_users
