@@ -1,0 +1,19 @@
+" NERDTree : Set NERDTree position
+let NERDTreeWinPos="left"
+
+" NERDTree : Use as expected with mouse, (dir => single clic, file => double clic)
+let NERDTreeMouseMode=2
+
+" NERDTree : Run at startup
+autocmd vimenter * NERDTree
+
+" NERDTree : Force focus to right buffer
+autocmd vimenter * wincmd p
+
+" NERDTree : automatically close if it is the last window remaining
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+" NERDTree : map to ,nt
+nnoremap <Leader>nt :NERDTreeToggle<CR>
+nnoremap <Leader>nf :NERDTreeFind<CR>
+

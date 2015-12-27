@@ -12,3 +12,8 @@ vimrc_users: []
 vimrc_sys: 
   - "syntax on"
 
+vim_modeline: true
+vim_modelines: 10
+
+vim_syntax: true
+vim_colorshell: true

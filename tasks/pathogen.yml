@@ -12,11 +12,12 @@
   become_user: "{{item}}"
   with_items: vimrc_users
 
-- lineinfile: >
-    dest=~/.vimrc
-    regexp=^execute.pathogen.infect
-    line="execute pathogen#infect()"
-    insertbefore="{{vimrc_boundary_end_regexp}}"
-  become: true
-  become_user: "{{item}}"
-  with_items: vimrc_users
+# - lineinfile: >
+#     dest=~/.vimrc
+#     regexp=^execute.pathogen.infect
+#     line="source ~/.vim/ansible/pathogen.vim"
+#     insertbefore="{{vimrc_boundary_end_regexp}}"
+#   become: true
+#   become_user: "{{item}}"
+#   with_items: vimrc_users
+ 

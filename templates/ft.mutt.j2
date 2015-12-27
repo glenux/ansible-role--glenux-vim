@@ -1,0 +1,9 @@
+
+autocmd BufRead,BufNewFile /tmp/mutt-* source $HOME/.vim/mutt.colors
+
+autocmd BufRead mutt* syntax on
+autocmd BufRead mutt* set ft=mail
+autocmd BufRead mutt* set textwidth=72
+autocmd BufRead mutt* set wrap
+
+

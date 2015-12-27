@@ -1,4 +1,15 @@
 ---
+- file: 
+    path: ~/.vim/ansible
+    state: directory
+  become: true
+  become_user: "{{item}}"
+  with_items: vimrc_users
+
+#
+# Solarized
+# 
+
 - name: Install Solarized plugin
   git: >
     repo=git://github.com/altercation/vim-colors-solarized.git 
@@ -8,6 +19,11 @@
   become: true
   become_user: "{{item}}"
   with_items: vimrc_users
+
+
+#
+# NERDTREE 
+#
 
 - name: Install Nerdtree plugin
   git: 
@@ -19,6 +35,20 @@
   become_user: "{{item}}"
   with_items: vimrc_users
 
+- template: 
+    src=templates/plugin.nerdtree.j2
+    dest=~/.vim/ansible/plugin.nerdtree
+    owner={{item}} 
+    group={{item}} 
+    mode=0644
+  become: true
+  become_user: "{{item}}"
+  with_items: vimrc_users
+
+
+#
+# AutoComplPop 
+#
 
 - name: Install AutoComplPop plugin
   git: 
@@ -30,6 +60,9 @@
   become_user: "{{item}}"
   with_items: vimrc_users
 
+#
+# Vim-fugitive
+#
 - name: Install vim-fugitive plugin
   git:
     repo=https://github.com/tpope/vim-fugitive.git
@@ -39,6 +72,17 @@
   become: true
   become_user: "{{item}}"
   with_items: vimrc_users
+
+- template: 
+    src=templates/plugin.fugitive.j2
+    dest=~/.vim/ansible/plugin.fugitive
+    owner={{item}} 
+    group={{item}} 
+    mode=0644
+  become: true
+  become_user: "{{item}}"
+  with_items: vimrc_users
+
 
 #- name: Install CtrlP
 #  git:
@@ -130,30 +174,39 @@
   become_user: "{{item}}"
   with_items: vimrc_users
 
-- name: Install YouCompleteMe dependencies
-  apt: 
-    name="{{item}}"
-    state=present
-  with_items:
-    - python-dev
-    - build-essential
-    - cmake
-
-- name: Fetch YouCompleteMe plugin
-  register: youcompleteme_git
-  git:
-    repo=https://github.com/Valloric/YouCompleteMe.git
-    dest=~/.vim/bundle/YouCompleteMe
-    update=yes
-    accept_hostkey=yes
+- name: Uninstall YouCompleteMe plugin
+  file: 
+    path: ~/.vim/bundle/YouCompleteMe
+    state: absent
+    #recurse: yes
   become: true
   become_user: "{{item}}"
   with_items: vimrc_users
 
-- name: Build YouCompleteMe plugin
-  shell: cd ~/.vim/bundle/YouCompleteMe ; ./install.sh
-  become: true
-  become_user: "{{item}}"
-  with_items: vimrc_users
-  when: youcompleteme_git.changed
-
+# - name: Install YouCompleteMe dependencies
+#   apt: 
+#     name="{{item}}"
+#     state=present
+#   with_items:
+#     - python-dev
+#     - build-essential
+#     - cmake
+# 
+# - name: Fetch YouCompleteMe plugin
+#   register: youcompleteme_git
+#   git:
+#     repo=https://github.com/Valloric/YouCompleteMe.git
+#     dest=~/.vim/bundle/YouCompleteMe
+#     update=yes
+#     accept_hostkey=yes
+#   become: true
+#   become_user: "{{item}}"
+#   with_items: vimrc_users
+# 
+# - name: Build YouCompleteMe plugin
+#   shell: cd ~/.vim/bundle/YouCompleteMe ; ./install.sh
+#   become: true
+#   become_user: "{{item}}"
+#   with_items: vimrc_users
+#   when: youcompleteme_git.changed
+ 

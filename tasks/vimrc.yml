@@ -1,18 +1,28 @@
-
-- lineinfile: >
-    dest=~/.vimrc
-    regexp="{{vimrc_boundary_begin_regexp}}"
-    line="{{vimrc_boundary_begin}}"
-    create=yes
+- template: 
+    src=templates/vimrc.j2
+    dest=~/.vimrc 
+    owner={{item}} 
+    group={{item}} 
+    mode=0644
   become: true
   become_user: "{{item}}"
   with_items: vimrc_users
 
-- lineinfile: >
-    dest=~/.vimrc
-    regexp="{{vimrc_boundary_end_regexp}}"
-    insertafter="{{vimrc_boundary_begin_regexp}}"
-    line="{{vimrc_boundary_end}}"
-  become: true
-  become_user: "{{item}}"
-  with_items: vimrc_users
+# - lineinfile: >
+#     dest=~/.vimrc
+#     regexp="{{vimrc_boundary_begin_regexp}}"
+#     line="{{vimrc_boundary_begin}}"
+#     create=yes
+#   become: true
+#   become_user: "{{item}}"
+#   with_items: vimrc_users
+# 
+# - lineinfile: >
+#     dest=~/.vimrc
+#     regexp="{{vimrc_boundary_end_regexp}}"
+#     insertafter="{{vimrc_boundary_begin_regexp}}"
+#     line="{{vimrc_boundary_end}}"
+#   become: true
+#   become_user: "{{item}}"
+#   with_items: vimrc_users
+# 

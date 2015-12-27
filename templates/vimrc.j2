@@ -1,0 +1,180 @@
+" BEGIN Ansible glenux.vim -- DO NOT MODIFY
+" vim: set ts=2 sw=2 et:
+
+{% if vim_modeline %}
+set modeline
+set modelines={{vim_modelines}}
+{% endif %}
+
+{% if vim_syntax %}
+syntax on
+{%endif%}
+
+{% if vim_colorshell %}
+set t_Co=256
+{%endif%}
+
+":set nu
+set backupdir=$HOME/tmp
+set dir=$HOME/tmp
+
+" Wild menu
+set wildmenu
+set wildmode=longest:list
+
+" Redefine <Leader> key in vim
+let mapleader = ","
+
+set colorcolumn=80,120
+nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
+"autocmd WinEnter * setlocal cursorline
+"autocmd WinLeave * setlocal nocursorline
+
+nmap <F4> :w<CR>:make<CR>:cw<CR>
+
+" Make sure that your status line is always shown as the second last line in
+" the editor window: 
+set laststatus=2 
+
+
+{% if vim_colorshell %}
+" Folds
+" =====
+
+set foldmethod=indent   " Fold based on indent
+set foldnestmax=3       " Deepest fold is 3 levels
+set nofoldenable        " Don't fold by default
+set foldcolumn=2
+set foldmethod=marker
+{%endif%}
+
+" Spell check parameters
+set spelllang=fr_FR
+set spellfile=$HOME/.vim/spell/generic.fr.add
+highlight SpellBad ctermfg=NONE ctermbg=NONE cterm=underline,bold
+highlight SpellCap ctermfg=NONE ctermbg=NONE cterm=underline,bold
+highlight SpellLocal ctermfg=NONE ctermbg=NONE cterm=underline,bold
+highlight MatchParen cterm=bold ctermfg=NONE ctermbg=NONE
+
+
+" Cursor management
+" =================
+
+" Number of visible lines to keep above/below the cursor
+set scrolloff=3
+
+" Show cursor position (line, col)
+set ruler
+
+set list
+
+"set smarttab softtabstop=8 tabstop=8 shiftwidth=4 noexpandtab list
+set listchars=tab:~.,trail:.,nbsp:�
+
+" Mouse parameters
+" ================
+
+" mouse parameters
+set mouse=a
+
+" send more characters for redraw
+set ttyfast
+ 
+" Set this to the name of your terminal that supports mouse codes.
+" Must be one of: xterm, xterm2, netterm, dec, jsbterm, pterm
+set ttymouse=xterm2
+
+set nocompatible
+
+call pathogen#infect()
+
+" Disable views when using Rails plugin
+"" autocmd BufWinLeave * silent! mkview
+"" autocmd BufWinEnter * silent! loadview
+
+"autocmd BufReadPost *
+"	\ if line("'\"") > 0 && line("'\"") <= line("$") |
+"	\ exe "normal g`\"" |
+"	\ endif
+
+filetype plugin indent on
+filetype plugin on
+
+" Default text indent, tab, width
+set noexpandtab copyindent preserveindent softtabstop=0 shiftwidth=4 tabstop=4
+
+autocmd BufNewFile,BufRead *.t2t set ft=txt2tags
+autocmd BufNewFile,BufRead *.md set ft=markdown
+
+autocmd FileType css,scss,less set tabstop=4 shiftwidth=4 softtabstop=0 smarttab   noexpandtab nolist textwidth=0
+autocmd FileType javascript    set tabstop=4 shiftwidth=4 softtabstop=0 smarttab   noexpandtab nolist textwidth=0
+autocmd FileType markdown      set tabstop=4 shiftwidth=4 softtabstop=0 nosmarttab expandtab   list   textwidth=0
+autocmd FileType haml          set tabstop=2 shiftwidth=2 softtabstop=0 nosmarttab expandtab   list   textwidth=0
+autocmd FileType xhtml,html    set tabstop=4 shiftwidth=4 softtabstop=0 smarttab   noexpandtab nolist textwidth=0
+autocmd FileType c             set tabstop=4 shiftwidth=4 softtabstop=0 smarttab   noexpandtab nolist textwidth=0
+autocmd FileType cpp           set tabstop=4 shiftwidth=4 softtabstop=0 smarttab   noexpandtab nolist textwidth=0
+autocmd FileType java          set tabstop=4 shiftwidth=4 softtabstop=0 smarttab   noexpandtab nolist textwidth=0
+autocmd FileType python        set tabstop=4 shiftwidth=4 softtabstop=0 smarttab   noexpandtab list   textwidth=0
+autocmd FileType ruby          set tabstop=2 shiftwidth=2 softtabstop=0 smarttab   expandtab   nolist textwidth=0
+autocmd FileType php           set tabstop=4 shiftwidth=4 softtabstop=0 smarttab   noexpandtab nolist textwidth=0
+autocmd FileType sh            set tabstop=4 shiftwidth=4 softtabstop=0 smarttab   noexpandtab nolist textwidth=0
+autocmd FileType make          set tabstop=4 shiftwidth=4 softtabstop=0 smarttab   noexpandtab list   textwidth=0
+autocmd FileType xsd,xml       set tabstop=4 shiftwidth=4 softtabstop=0 smarttab   noexpandtab nolist textwidth=0
+
+autocmd BufNewFile,BufRead *
+	\ syntax match GNUX_TAGS /FIXME\s*:/ containedin=ALL contained |
+	\ syntax match GNUX_TAGS /TOREAD\s*:/ containedin=ALL contained |
+	\ highlight GNUX_TAGS ctermbg=darkred ctermfg=green
+
+"autocmd FileType python source ~/.vim/scripts/python.vim
+highlight Folded guibg=gray15 guifg=gray50
+
+
+highlight TabLine term=none cterm=none
+"highlight TabLineSel ctermbg=darkred
+
+syntax match TAB_CHAR /^[ ]*/
+"syntax match TAB_CHAR /\t/
+highlight link TAB_CHAR Error
+
+{% if false %}
+"set cursorline
+"highlight CursorLine term=reverse cterm=reverse
+"
+"au FileType haskell,vhdl,ada,ocaml      let b:comment_leader = '-- ' 
+"au FileType vim                         let b:comment_leader = '" '
+"au FileType c,cpp,java                  let b:comment_leader = '// '
+"au FileType sh,make                     let b:comment_leader = '# '
+"au FileType tex                         let b:comment_leader = '% '
+"noremap <silent> ,c :<C-B>sil <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:noh<CR>
+"noremap <silent> ,u :<C-B>sil <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:noh<CR>
+
+"set background=dark
+"highlight PreProc ctermfg=5 cterm=bold		"cyan
+"highlight Comment ctermfg=9			"bright red
+"highlight String ctermfg=7			"dark white
+"highlight Normal guibg=Black guifg=White
+{% endif %}
+
+" Display settings
+"set background=light
+set background=dark
+"let g:solarized_termcolors=256
+colorscheme desert
+hi CursorLine   cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+
+
+" Buffer management : show buffer list & choose
+nnoremap <F5> :buffers<CR>:buffer<Space>
+
+" Plugin-specific configuration
+if filereadable($HOME . '/.vim/ansible/plugin.fugitive') 
+  source ~/.vim/ansible/plugin.fugitive 
+endif
+if filereadable($HOME . '/.vim/ansible/plugin.nerdtree') 
+  source ~/.vim/ansible/plugin.nerdtree 
+endif
+
+" END Ansible glenux.vim
+
