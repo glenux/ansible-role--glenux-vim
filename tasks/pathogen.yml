@@ -7,7 +7,7 @@
   become_user: "{{item[1]}}"
   with_nested:
     - [ '~/.vim/autoload', '~/.vim/bundle' ]
-    - users
+    - vimrc_users
 
 - name: Install Pathogen
   get_url: >

@@ -169,12 +169,9 @@ hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=whi
 nnoremap <F5> :buffers<CR>:buffer<Space>
 
 " Plugin-specific configuration
-if filereadable($HOME . '/.vim/ansible/plugin.fugitive') 
-  source ~/.vim/ansible/plugin.fugitive 
-endif
-if filereadable($HOME . '/.vim/ansible/plugin.nerdtree') 
-  source ~/.vim/ansible/plugin.nerdtree 
-endif
+for f in split(glob('~/.vim/ansible/*.vim'), '\n')
+  exe 'source' f
+endfor
 
 " END Ansible glenux.vim
 
