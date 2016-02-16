@@ -1,23 +1,9 @@
----
 galaxy_info:
   author: Glenn Y. Rolland
   description: Install Pathogen, Solarized, Nerdtree and AutoComplPop for Vim. Copy my .vimrc 
   company: netcat_
   license: MIT
   min_ansible_version: 1.9
-platforms:
-  - name: Debian
-    versions:
-      - all
-  - name: Ubuntu 
-    versions:
-      - all
-  - names: Mac OS
-    versions: 
-      - X
-categories:
-  - development
-  - system
 dependencies: []
   # List your role dependencies here, one per line. Only
   # dependencies available via galaxy should be listed here.
