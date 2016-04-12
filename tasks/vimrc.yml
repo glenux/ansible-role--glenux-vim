@@ -1,12 +1,12 @@
-- template: 
+- template: >
     src=templates/vimrc.j2
     dest=~/.vimrc 
-    owner={{item}} 
-    group={{item}} 
+    owner="{{item}}"
+    group="{{item}}"
     mode=0644
   become: true
   become_user: "{{item}}"
-  with_items: vimrc_users
+  with_items: "{{vimrc_users}}"
 
 # - lineinfile: >
 #     dest=~/.vimrc

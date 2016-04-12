@@ -4,7 +4,7 @@
     state: directory
   become: true
   become_user: "{{item}}"
-  with_items: vimrc_users
+  with_items: "{{vimrc_users}}"
 
 #
 # Solarized
@@ -18,7 +18,7 @@
     accept_hostkey=yes
   become: true
   become_user: "{{item}}"
-  with_items: vimrc_users
+  with_items: "{{vimrc_users}}"
 
 
 #
@@ -33,7 +33,7 @@
     accept_hostkey=yes
   become: true
   become_user: "{{item}}"
-  with_items: vimrc_users
+  with_items: "{{vimrc_users}}"
 
 - template: 
     src=templates/plugin.nerdtree.vim.j2
@@ -43,7 +43,7 @@
     mode=0644
   become: true
   become_user: "{{item}}"
-  with_items: vimrc_users
+  with_items: "{{vimrc_users}}"
 
 
 #
@@ -58,7 +58,7 @@
     accept_hostkey=yes
   become: true
   become_user: "{{item}}"
-  with_items: vimrc_users
+  with_items: "{{vimrc_users}}"
 
 #
 # Vim-fugitive
@@ -71,7 +71,7 @@
     accept_hostkey=yes
   become: true
   become_user: "{{item}}"
-  with_items: vimrc_users
+  with_items: "{{vimrc_users}}"
 
 - template: 
     src=templates/plugin.fugitive.vim.j2
@@ -81,7 +81,7 @@
     mode=0644
   become: true
   become_user: "{{item}}"
-  with_items: vimrc_users
+  with_items: "{{vimrc_users}}"
 
 
 #- name: Install CtrlP
@@ -104,7 +104,7 @@
     accept_hostkey=yes
   become: true
   become_user: "{{item}}"
-  with_items: vimrc_users
+  with_items: "{{vimrc_users}}"
 
 - template: 
     src=templates/plugin.rainbow-parentheses.vim.j2
@@ -114,7 +114,7 @@
     mode=0644
   become: true
   become_user: "{{item}}"
-  with_items: vimrc_users
+  with_items: "{{vimrc_users}}"
 
 
 #
@@ -128,7 +128,7 @@
     accept_hostkey=yes
   become: true
   become_user: "{{item}}"
-  with_items: vimrc_users
+  with_items: "{{vimrc_users}}"
 
 
 - name: Install tabular plugin
@@ -139,7 +139,7 @@
     accept_hostkey=yes
   become: true
   become_user: "{{item}}"
-  with_items: vimrc_users
+  with_items: "{{vimrc_users}}"
 
 - name: Install vim-bundler plugin
   git:
@@ -149,7 +149,7 @@
     accept_hostkey=yes
   become: true
   become_user: "{{item}}"
-  with_items: vimrc_users
+  with_items: "{{vimrc_users}}"
 
 #
 # Javascript 
@@ -163,7 +163,7 @@
     accept_hostkey=yes
   become: true
   become_user: "{{item}}"
-  with_items: vimrc_users
+  with_items: "{{vimrc_users}}"
 
 - name: Install vim-puppet plugin
   git:
@@ -173,7 +173,7 @@
     accept_hostkey=yes
   become: true
   become_user: "{{item}}"
-  with_items: vimrc_users
+  with_items: "{{vimrc_users}}"
 
 #
 # Rails
@@ -186,7 +186,7 @@
     accept_hostkey=yes
   become: true
   become_user: "{{item}}"
-  with_items: vimrc_users
+  with_items: "{{vimrc_users}}"
 
 - template: 
     src=templates/plugin.rails.vim.j2
@@ -196,7 +196,7 @@
     mode=0644
   become: true
   become_user: "{{item}}"
-  with_items: vimrc_users
+  with_items: "{{vimrc_users}}"
 
 #
 # vim-sensible: a universal set of defaults that (hopefully) everyone can agree on
@@ -209,7 +209,7 @@
     accept_hostkey=yes
   become: true
   become_user: "{{item}}"
-  with_items: vimrc_users
+  with_items: "{{vimrc_users}}"
 
 #
 # vim-pencil: rethinking Vim as a tool for writing
@@ -222,7 +222,7 @@
     accept_hostkey=yes
   become: true
   become_user: "{{item}}"
-  with_items: vimrc_users
+  with_items: "{{vimrc_users}}"
 
 
 #
@@ -235,7 +235,7 @@
     #recurse: yes
   become: true
   become_user: "{{item}}"
-  with_items: vimrc_users
+  with_items: "{{vimrc_users}}"
 
 # - name: Install YouCompleteMe dependencies
 #   apt: 

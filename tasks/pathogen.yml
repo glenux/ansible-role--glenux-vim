@@ -1,13 +1,13 @@
 ---
 - name: Make directories for Pathogen
   file: >
-    "path={{item[0]}}"
+    path={{item[0]}}
     state=directory
   become: true
   become_user: "{{item[1]}}"
   with_nested:
     - [ '~/.vim/autoload', '~/.vim/bundle' ]
-    - vimrc_users
+    - "{{vimrc_users}}"
 
 - name: Install Pathogen
   get_url: >
@@ -16,7 +16,7 @@
     validate_certs=no
   become: true
   become_user: "{{item}}"
-  with_items: vimrc_users
+  with_items: "{{vimrc_users}}"
 
 # - lineinfile: >
 #     dest=~/.vimrc
