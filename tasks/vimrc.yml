@@ -1,3 +1,7 @@
+- file:
+    path=~/tmp
+    state=directory
+
 - template: >
     src=templates/vimrc.j2
     dest=~/.vimrc 
